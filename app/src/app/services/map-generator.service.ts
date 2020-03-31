@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Board} from '../model/board';
-import {Field} from '../model/field';
+import {Field, Harbour} from '../model/field';
 import {Resource, resources} from '../model/resource';
 
 @Injectable({
@@ -13,34 +13,42 @@ export class MapGeneratorService {
 
     generateMapByPreset(presetId: string): Board {
         const board = new Board();
-        const preset = JSON.parse(JSON.stringify(PRESETS[presetId]));
+        const preset: Preset = JSON.parse(JSON.stringify(PRESETS[presetId]));
 
         if (!preset) {
             throw Error('Preset id not found');
         }
-        for (const field of this.shuffle(preset.fields)) {
+        this.shuffle(preset.fields).forEach(field => {
             if (field.water) {
-                board.fields.push(new Field(field.x, field.y, resources.water, -1));
+                field.harbour ?
+                    board.fields.push(new Field(field.x, field.y, resources.water, -1, field.harbour)) :
+                    board.fields.push(new Field(field.x, field.y, resources.water, -1));
             } else {
                 const availResourceFields = preset.resources.filter(res => res.count >= 1);
                 if (availResourceFields.length >= 1) {
                     availResourceFields[0].count--;
-                    board.fields.push(new Field(field.x, field.y, resources[availResourceFields[0].resource.name]));
+                    board.fields.push(new Field(
+                        field.x,
+                        field.y,
+                        resources[availResourceFields[0].resource.name],
+                        this.shuffle(preset.chips).pop())
+                    );
                 }
             }
-        }
+        });
         console.log(PRESETS);
         return board;
 
     }
 
-    generateBySize(xLength: number, yLength: number): Board {
+    generateBySize(xLength: number, yLength: number, random = true): Board {
         const board = new Board();
         board.fields = [];
         for (const x of Array(xLength).keys()) {
             for (const y of Array(yLength * 2 - 1).keys()) {
                 if ((x + y) % 2 === 0) {
-                    board.fields.push(new Field(x, y, resources.water));
+                    random ? board.fields.push(new Field(x, y)) :
+                        board.fields.push(new Field(x, y, resources.water));
                 }
             }
         }
@@ -64,12 +72,13 @@ export class MapGeneratorService {
 
 
 interface Preset {
-
     resources: { count: number, resource: Resource }[];
+    chips: number[];
     fields: {
         x: number;
         y: number;
         water?: boolean;
+        harbour?: Harbour;
     }[];
 }
 
@@ -83,13 +92,16 @@ const PRESETS: { [key: string]: Preset } = {
             {resource: resources.field, count: 4},
             {resource: resources.mountain, count: 3},
         ],
+        chips: [
+            2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12
+        ],
         fields:
             [
                 {x: 0, y: 4, water: true},
-                {x: 0, y: 6, water: true},
+                {x: 0, y: 6, water: true, harbour: {position: 2}},
                 {x: 0, y: 8, water: true},
-                {x: 0, y: 10, water: true},
-                {x: 1, y: 3, water: true},
+                {x: 0, y: 10, water: true, harbour: {position: 1}},
+                {x: 1, y: 3, water: true, harbour: {resource: resources.mountain, position: 3}},
                 {x: 1, y: 5},
                 {x: 1, y: 7},
                 {x: 1, y: 9},
@@ -99,8 +111,8 @@ const PRESETS: { [key: string]: Preset } = {
                 {x: 2, y: 6},
                 {x: 2, y: 8},
                 {x: 2, y: 10},
-                {x: 2, y: 12, water: true},
-                {x: 3, y: 1, water: true},
+                {x: 2, y: 12, water: true, harbour: {resource: resources.mountain, position: 0}},
+                {x: 3, y: 1, water: true, harbour: {position: 3}},
                 {x: 3, y: 3},
                 {x: 3, y: 5},
                 {x: 3, y: 7},
@@ -112,16 +124,16 @@ const PRESETS: { [key: string]: Preset } = {
                 {x: 4, y: 6},
                 {x: 4, y: 8},
                 {x: 4, y: 10},
-                {x: 4, y: 12, water: true},
-                {x: 5, y: 3, water: true},
+                {x: 4, y: 12, water: true, harbour: {resource: resources.clay, position: 5}},
+                {x: 5, y: 3, water: true, harbour: {position: 3}},
                 {x: 5, y: 5},
                 {x: 5, y: 7},
                 {x: 5, y: 9},
                 {x: 5, y: 11, water: true},
                 {x: 6, y: 4, water: true},
-                {x: 6, y: 6, water: true},
+                {x: 6, y: 6, water: true, harbour: {resource: resources.field, position: 5}},
                 {x: 6, y: 8, water: true},
-                {x: 6, y: 10, water: true}]
+                {x: 6, y: 10, water: true, harbour: {resource: resources.sheep, position: 5}}]
     }
 
 };

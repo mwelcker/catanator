@@ -37,4 +37,8 @@ export class MapComponent implements OnInit {
         // this.board = this.mapService.generateBySize(this.fieldSize.x, this.fieldSize.y);
 
     }
+
+    generateRandom(x: number, y: number) {
+        this.board = this.mapService.generateBySize(x, y);
+    }
 }

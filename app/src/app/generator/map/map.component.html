@@ -5,6 +5,7 @@
         </ion-col>
         <ion-col>
             <ion-button expand="block"  color="secondary" (click)="generate()">Generate map</ion-button>
+            <ion-button expand="block"  color="secondary" (click)="generateRandom(10,10)">Generate random map (10x10)</ion-button>
         </ion-col>
     </ion-row>
 </ion-grid>
@@ -12,31 +13,30 @@
 <ng-container *ngIf="board">
     <figure id="diagram-grid-doubled-q">
         <svg [attr.viewBox]="'-100 -106.60254037844388 '+(board.size.x+1.4)*widthOffset+' '+(board.size.y+2.5)/2*heightOffset">
-            <g transform="rotate(0)" fill="white" stroke="black">
-                <g class="grid">
-                    <g *ngFor="let field of board.fields"
-                       [attr.transform]="'translate('+field.x*widthOffset+','+(field.y*heightOffset)/2+')'">
+            <g transform="rotate(0)" fill="white" stroke="black" class="grid" *ngFor="let field of board.fields"
+               [attr.transform]="'translate('+field.x*widthOffset+','+(field.y*heightOffset)/2+')'">
+                <defs>
+                    <pattern [attr.id]="field.resource.name" patternUnits="userSpaceOnUse"
+                             width="100" height="100">
+                        <image [attr.href]="field.resource.image"
+                               x="0" y="0" width="100" height="100"/>
+                    </pattern>
+                </defs>
+                <polygon [attr.fill]="'url(#'+field.resource.name+')'" [attr.fill]="field.resource.color"
+                         points="100,0 50,-87 -50,-87 -100,-0 -50,87 50,87"></polygon>
 
-                        <defs>
-                            <pattern [attr.id]="field.resource.name" patternUnits="userSpaceOnUse"
-                                     width="100" height="100">
-                                <image [attr.href]="field.resource.image"
-                                       x="0" y="0" width="100" height="100"/>
-                            </pattern>
-                        </defs>
-
-                        <g class="" (click)="removeElem(field)">
-                            <polygon [attr.fill]="'url(#'+field.resource.name+')'" [attr.fill]="field.resource.color"
-                                     points="100,0 50,-87 -50,-87 -100,-0 -50,87 50,87"></polygon>
-                            <text dy="0.4em" transform="translate(-15,8)">
-                                <tspan class="q-coord">{{field.chip}}</tspan>
-                            </text>
-                        </g>
-                    </g>
+                <g *ngIf="field.harbour" [attr.transform]="'rotate('+60 * field.harbour.position+')'">
+                    <polygon fill="none"
+                             points="-50,-87 50,-87 0,-35"></polygon>
+                    <circle *ngIf="field.harbour.resource" cy="-35" r="20"
+                            [attr.fill]="field.harbour.resource.color"></circle>
+                    <circle *ngIf="!field.harbour.resource" cy="-35" r="20" fill="white"></circle>
                 </g>
+
+                <text dy="0.4em" transform="translate(-15,8)">
+                    <tspan class="q-coord">{{field.chip}}</tspan>
+                </text>
             </g>
-
-
         </svg>
     </figure>
 </ng-container>
