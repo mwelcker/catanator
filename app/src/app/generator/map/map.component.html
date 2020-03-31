@@ -12,12 +12,13 @@
 
 
 <ng-container *ngIf="board">
-    <pre>Rating {{board.rating.sum | json}}</pre>
-    <pre>Neighbours: {{board.getNeighbours(selectedField) | json}}</pre>
+    <pre>Rating of Board {{board.convertRatingToSchoolmark(board.getRating(board.fields).rating_sum)}}</pre>
+    <pre>Rating of Selected Fields {{board.getRating(highlightedFields).rating_sum_as_schoolmark}}</pre>
 
     <figure id="diagram-grid-doubled-q">
         <svg [attr.viewBox]="'-100 -106.60254037844388 '+(board.size.x+1.4)*widthOffset+' '+(board.size.y+2.5)/2*heightOffset">
-            <g (click)="selectedField = field" transform="rotate(0)" fill="white" stroke="black" class="grid"
+            <g (click)="selectField(field)" [class.marked]="isHighlighted(field)" transform="rotate(0)" fill="white"
+               stroke="black" class="grid"
                *ngFor="let field of board.fields"
                [attr.transform]="'translate('+field.x*widthOffset+','+(field.y*heightOffset)/2+')'">
                 <defs>
@@ -29,6 +30,20 @@
                 </defs>
                 <polygon [attr.fill]="'url(#'+field.resource.name+')'" [attr.fill]="field.resource.color"
                          points="100,0 50,-87 -50,-87 -100,-0 -50,87 50,87"></polygon>
+                <g class="city-marker">
+                    <circle (click)="highlightedFields = board.getTripleByDirection(field, 1)" cx="99" cy="0"
+                            r="10"></circle>
+                    <circle (click)="highlightedFields = board.getTripleByDirection(field, 4)" cx="-99" cy="0"
+                            r="10"></circle>
+                    <circle (click)="highlightedFields = board.getTripleByDirection(field, 5)" cx="-50" cy="-87"
+                            r="10"></circle>
+                    <circle (click)="highlightedFields = board.getTripleByDirection(field, 2)" cx="50" cy="87"
+                            r="10"></circle>
+                    <circle (click)="highlightedFields = board.getTripleByDirection(field, 0)" cx="50" cy="-87"
+                            r="10"></circle>
+                    <circle (click)="highlightedFields = board.getTripleByDirection(field, 3)" cx="-50" cy="87"
+                            r="10"></circle>
+                </g>
 
                 <g *ngIf="field.harbour" [attr.transform]="'rotate('+60 * field.harbour.position+')'">
                     <polygon fill="none"
@@ -36,6 +51,9 @@
                     <circle *ngIf="field.harbour.resource" cy="-35" r="20"
                             [attr.fill]="field.harbour.resource.color"></circle>
                     <circle *ngIf="!field.harbour.resource" cy="-35" r="20" fill="white"></circle>
+                    <text style="font-size: 1.4em" *ngIf="!field.harbour.resource" dy="0.4em" transform="translate(-14,-38)">
+                        3:1
+                    </text>
                 </g>
 
                 <text dy="0.4em" transform="translate(-15,8)">

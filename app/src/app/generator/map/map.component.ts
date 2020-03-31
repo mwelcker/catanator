@@ -19,12 +19,17 @@ export class MapComponent implements OnInit {
 
     board: Board;
     openOptions: boolean = false;
-    selectedField;
+    selectedField: Field;
+    highlightedFields: Field[] = [];
 
 
     constructor(private mapService: MapGeneratorService) {
         this.generate();
         this.selectedField = this.board.fields[0];
+    }
+
+    selectField(field: Field) {
+        this.selectedField = field;
     }
 
     ngOnInit() {
@@ -42,5 +47,9 @@ export class MapComponent implements OnInit {
 
     generateRandom(x: number, y: number) {
         this.board = this.mapService.generateBySize(x, y);
+    }
+
+    isHighlighted(field: Field) {
+        return this.highlightedFields.includes(field);
     }
 }
