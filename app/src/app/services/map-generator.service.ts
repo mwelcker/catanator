@@ -39,7 +39,6 @@ export class MapGeneratorService {
             }
         });
         return board;
-
     }
 
     generateBySize(xLength: number, yLength: number, random = true): Board {

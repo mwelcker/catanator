@@ -13,19 +13,14 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Start game',
-      url: '/folder/Inbox',
-      icon: 'mail'
-    },
-    {
       title: 'Generate',
       url: '/generator',
       icon: 'paper-plane'
     },
     {
-      title: 'Favorites',
-      url: '/folder/Favorites',
-      icon: 'heart'
+      title: 'Editor',
+      url: '/editor',
+      icon: 'map'
     }
   ];
 

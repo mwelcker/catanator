@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Field} from '../../model/field';
 import {Board} from '../../model/board';
-import {MapGeneratorService} from '../../services/map-generator.service';
 import {resources} from '../../model/resource';
+import {MapGeneratorService} from '../../services/map-generator.service';
 
 
 @Component({
@@ -14,39 +14,27 @@ export class MapComponent implements OnInit {
 
     heightOffset = 173;
     widthOffset = 150;
-
     resources = resources;
 
-    board: Board;
-    openOptions: boolean = false;
+    @Input() board: Board;
+    @Output() fieldClick = new EventEmitter();
+    @Input() generatorMode = false;
+    @Input() analyseMode = false;
     selectedField: Field;
     highlightedFields: Field[] = [];
 
 
     constructor(private mapService: MapGeneratorService) {
-        this.generate();
+        this.board = this.mapService.generateMapByPreset('standard');
         this.selectedField = this.board.fields[0];
     }
 
     selectField(field: Field) {
+        this.fieldClick.emit(field);
         this.selectedField = field;
     }
 
     ngOnInit() {
-    }
-
-
-    removeElem(field: Field) {
-    }
-
-    generate() {
-        this.board = this.mapService.generateMapByPreset('standard');
-        // this.board = this.mapService.generateBySize(this.fieldSize.x, this.fieldSize.y);
-
-    }
-
-    generateRandom(x: number, y: number) {
-        this.board = this.mapService.generateBySize(x, y);
     }
 
     isHighlighted(field: Field) {

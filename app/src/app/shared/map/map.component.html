@@ -1,20 +1,4 @@
-<ion-grid>
-    <ion-row>
-        <ion-col>
-            <ion-button expand="block" color="light" (click)="openOptions=true">More options ...</ion-button>
-        </ion-col>
-        <ion-col>
-            <ion-button expand="block"  color="secondary" (click)="generate()">Generate map</ion-button>
-            <ion-button expand="block"  color="secondary" (click)="generateRandom(10,10)">Generate random map (10x10)</ion-button>
-        </ion-col>
-    </ion-row>
-</ion-grid>
-
-
 <ng-container *ngIf="board">
-    <pre>Rating of Board {{board.convertRatingToSchoolmark(board.getRating(board.fields).rating_sum)}}</pre>
-    <pre>Rating of Selected Fields {{board.getRating(highlightedFields).rating_sum_as_schoolmark}}</pre>
-
     <figure id="diagram-grid-doubled-q">
         <svg [attr.viewBox]="'-100 -106.60254037844388 '+(board.size.x+1.4)*widthOffset+' '+(board.size.y+2.5)/2*heightOffset">
             <g (click)="selectField(field)" [class.marked]="isHighlighted(field)" transform="rotate(0)" fill="white"
@@ -30,10 +14,25 @@
                 </defs>
                 <polygon [attr.fill]="'url(#'+field.resource.name+')'" [attr.fill]="field.resource.color"
                          points="100,0 50,-87 -50,-87 -100,-0 -50,87 50,87"></polygon>
-                <g class="city-marker">
-                    <circle (click)="highlightedFields = board.getTripleByDirection(field, 1)" cx="99" cy="0"
+                <g *ngIf="field.harbour" [attr.transform]="'rotate('+60 * field.harbour.position+')'">
+                    <polygon fill="none"
+                             points="-50,-87 50,-87 0,-35"></polygon>
+                    <circle *ngIf="field.harbour.resource" cy="-35" r="20"
+                            [attr.fill]="field.harbour.resource.color"></circle>
+                    <circle *ngIf="!field.harbour.resource" cy="-35" r="20" fill="white"></circle>
+                    <text style="font-size: 1.4em" *ngIf="!field.harbour.resource" dy="0.4em"
+                          transform="translate(-14,-38)">
+                        3:1
+                    </text>
+                </g>
+
+                <text dy="0.4em" transform="translate(-15,8)">
+                    <tspan class="q-coord">{{field.chip}}</tspan>
+                </text>
+                <g *ngIf="analyseMode" class="city-marker">
+                    <circle (click)="highlightedFields = board.getTripleByDirection(field, 1)" cx="100" cy="0"
                             r="10"></circle>
-                    <circle (click)="highlightedFields = board.getTripleByDirection(field, 4)" cx="-99" cy="0"
+                    <circle (click)="highlightedFields = board.getTripleByDirection(field, 4)" cx="-100" cy="0"
                             r="10"></circle>
                     <circle (click)="highlightedFields = board.getTripleByDirection(field, 5)" cx="-50" cy="-87"
                             r="10"></circle>
@@ -44,21 +43,6 @@
                     <circle (click)="highlightedFields = board.getTripleByDirection(field, 3)" cx="-50" cy="87"
                             r="10"></circle>
                 </g>
-
-                <g *ngIf="field.harbour" [attr.transform]="'rotate('+60 * field.harbour.position+')'">
-                    <polygon fill="none"
-                             points="-50,-87 50,-87 0,-35"></polygon>
-                    <circle *ngIf="field.harbour.resource" cy="-35" r="20"
-                            [attr.fill]="field.harbour.resource.color"></circle>
-                    <circle *ngIf="!field.harbour.resource" cy="-35" r="20" fill="white"></circle>
-                    <text style="font-size: 1.4em" *ngIf="!field.harbour.resource" dy="0.4em" transform="translate(-14,-38)">
-                        3:1
-                    </text>
-                </g>
-
-                <text dy="0.4em" transform="translate(-15,8)">
-                    <tspan class="q-coord">{{field.chip}}</tspan>
-                </text>
             </g>
         </svg>
     </figure>

@@ -3,6 +3,9 @@
 
 /** Ionic CSS Variables **/
 :root {
+  /** CUSTOM **/
+  --side-max-width: 50px;
+
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
@@ -227,3 +230,5 @@
     --color: white;
   }
 }
+
+

@@ -7,16 +7,17 @@ import {IonicModule} from '@ionic/angular';
 import {GeneratorPageRoutingModule} from './generator-routing.module';
 
 import {GeneratorPage} from './generator.page';
-import {MapComponent} from './map/map.component';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
-        GeneratorPageRoutingModule
+        GeneratorPageRoutingModule,
+        SharedModule
     ],
-    declarations: [GeneratorPage, MapComponent]
+    declarations: [GeneratorPage]
 })
 export class GeneratorPageModule {
 }

@@ -7,7 +7,19 @@
 <ion-content>
     <ion-row class="ion-justify-content-center">
         <ion-col size="12">
-            <app-map></app-map>
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <ion-button expand="block" color="light">More options ...
+                        </ion-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-button expand="block" color="secondary" (click)="generate()">Generate map</ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+            <app-map [generatorMode]="true" [board]="board"></app-map>
         </ion-col>
     </ion-row>
 </ion-content>

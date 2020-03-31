@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>FieldEditModal</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-button (click)="field.resource = resources.forest">
+        <ion-icon slot="start" name="star"></ion-icon>
+        Forest
+    </ion-button>
+
+    <ion-button (click)="field.resource = resources.mountain" color="red">
+        <ion-icon slot="start" name="star"></ion-icon>
+        Mountain
+    </ion-button>
+
+    <ion-button (click)="field.resource = resources.field">
+        <ion-icon slot="start" name="star"></ion-icon>
+        Field
+    </ion-button>
+
+    <ion-button (click)="field.resource = resources.sheep">
+        <ion-icon slot="start" name="star"></ion-icon>
+        Sheep
+    </ion-button>
+
+    <ion-button (click)="field.resource = resources.clay">
+        <ion-icon slot="start" name="star"></ion-icon>
+        Clay
+    </ion-button>
+
+    <ion-button (click)="field.resource = resources.water">
+        <ion-icon slot="start" name="water"></ion-icon>
+        Water
+    </ion-button>
+
+</ion-content>

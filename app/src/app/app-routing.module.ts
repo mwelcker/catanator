@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
   {
@@ -9,11 +9,19 @@ const routes: Routes = [
   },
   {
     path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+    loadChildren: () => import('./folder/folder.module').then(m => m.FolderPageModule)
   },
   {
     path: 'generator',
-    loadChildren: () => import('./generator/generator.module').then( m => m.GeneratorPageModule)
+    loadChildren: () => import('./generator/generator.module').then(m => m.GeneratorPageModule)
+  },
+  {
+    path: 'editor',
+    loadChildren: () => import('./editor/editor.module').then(m => m.EditorPageModule)
+  },
+  {
+    path: 'field-edit-modal',
+    loadChildren: () => import('./editor/field-edit-modal/field-edit-modal.module').then(m => m.FieldEditModalPageModule)
   }
 ];
 
