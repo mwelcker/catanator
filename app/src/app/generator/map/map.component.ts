@@ -19,10 +19,12 @@ export class MapComponent implements OnInit {
 
     board: Board;
     openOptions: boolean = false;
+    selectedField;
 
 
     constructor(private mapService: MapGeneratorService) {
         this.generate();
+        this.selectedField = this.board.fields[0];
     }
 
     ngOnInit() {

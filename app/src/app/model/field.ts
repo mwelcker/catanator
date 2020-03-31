@@ -1,4 +1,5 @@
 import {Resource, resources} from './resource';
+import {FIELD_RATINGS} from './board';
 
 export const SPAWNABLE_RES: string[] = ['mountain', 'forest', 'field', 'sheep', 'clay'];
 
@@ -29,5 +30,9 @@ export class Field {
                 resource: harbour.resource,
             };
         }
+    }
+
+    getFieldRating(): number {
+        return FIELD_RATINGS.find(rating => rating.dice === this.chip).rating;
     }
 }

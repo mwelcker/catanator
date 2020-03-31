@@ -27,16 +27,17 @@ export class MapGeneratorService {
                 const availResourceFields = preset.resources.filter(res => res.count >= 1);
                 if (availResourceFields.length >= 1) {
                     availResourceFields[0].count--;
+
                     board.fields.push(new Field(
                         field.x,
                         field.y,
                         resources[availResourceFields[0].resource.name],
-                        this.shuffle(preset.chips).pop())
+                        availResourceFields[0].resource.name === resources.desert.name ? -1 : // no chip for desert
+                            this.shuffle(preset.chips).pop())
                     );
                 }
             }
         });
-        console.log(PRESETS);
         return board;
 
     }
@@ -67,9 +68,7 @@ export class MapGeneratorService {
         }
         return array;
     }
-
 }
-
 
 interface Preset {
     resources: { count: number, resource: Resource }[];
