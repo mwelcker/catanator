@@ -13,9 +13,14 @@ export class AppComponent implements OnInit {
     public selectedIndex = 0;
     public appPages = [
         {
+            title: 'Community Maps  ',
+            url: '/community',
+            icon: 'people'
+        },
+        {
             title: 'Scenario Generator',
             url: '/generator',
-            icon: 'paper-plane'
+            icon: 'color-wand'
         },
         {
             title: 'Map Editor',
