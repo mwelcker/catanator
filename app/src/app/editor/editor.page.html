@@ -4,34 +4,41 @@
     </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col sizeMd="6" sizeLg="4" sizeSm="12" sizeXs="12" pushMd="6" pushLg="8">
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-title>Create map</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-item>
+                            <ion-label>Width (in fields)</ion-label>
+                            <ion-select [(ngModel)]="width" interface="action-sheet" cancelText="Dismiss">
+                                <ion-select-option *ngFor="let width of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]"
+                                                   [value]="width">{{width}}</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Height (in fields)</ion-label>
+                            <ion-select [(ngModel)]="height" interface="action-sheet" cancelText="Dismiss">
+                                <ion-select-option *ngFor="let height of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]"
+                                                   [value]="height">{{height}}</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-button expand="block" color="secondary" (click)="generateRandom()">Generate random
+                            map
+                        </ion-button>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col sizeMd="6" sizeLg="8" sizeSm="12" sizeXs="12" pullMd="6" pullLg="4">
+                <app-map [generatorMode]="true" (fieldClick)="presentModal($event)" [board]="board"></app-map>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 
-    <ion-card>
-        <ion-card-header>
-            <ion-card-title>Create map</ion-card-title>
-        </ion-card-header>
-
-        <ion-card-content>
-            <ion-item>
-                <ion-label>Width (in fields)</ion-label>
-                <ion-select [(ngModel)]="width" interface="action-sheet" cancelText="Dismiss">
-                    <ion-select-option *ngFor="let width of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]"
-                                       [value]="width">{{width}}</ion-select-option>
-                </ion-select>
-            </ion-item>
-            <ion-item>
-                <ion-label>Height (in fields)</ion-label>
-                <ion-select [(ngModel)]="height" interface="action-sheet" cancelText="Dismiss">
-                    <ion-select-option *ngFor="let height of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]"
-                                       [value]="height">{{height}}</ion-select-option>
-                </ion-select>
-            </ion-item>
-            <ion-button expand="block" color="secondary" (click)="generateRandom()">Generate random
-                map
-            </ion-button>
-        </ion-card-content>
-    </ion-card>
-
-    <app-map [generatorMode]="true" (fieldClick)="presentModal($event)" [board]="board"></app-map>
 
 </ion-content>

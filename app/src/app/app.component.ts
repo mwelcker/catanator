@@ -13,12 +13,12 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Generate',
+      title: 'Scenario Generator',
       url: '/generator',
       icon: 'paper-plane'
     },
     {
-      title: 'Editor',
+      title: 'Map Editor',
       url: '/editor',
       icon: 'map'
     }

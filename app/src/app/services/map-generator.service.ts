@@ -13,7 +13,7 @@ export class MapGeneratorService {
 
     generateMapByPreset(presetId: string): Board {
         const board = new Board();
-        const preset: Preset = JSON.parse(JSON.stringify(PRESETS[presetId]));
+        const preset: Preset = JSON.parse(JSON.stringify(PRESETS.find(preset => preset.id === presetId)));
 
         if (!preset) {
             throw Error('Preset id not found');
@@ -69,7 +69,10 @@ export class MapGeneratorService {
     }
 }
 
-interface Preset {
+export interface Preset {
+    id: string;
+    name: string;
+    players: number;
     resources: { count: number, resource: Resource }[];
     chips: number[];
     fields: {
@@ -80,8 +83,11 @@ interface Preset {
     }[];
 }
 
-const PRESETS: { [key: string]: Preset } = {
-    standard: {
+export const PRESETS: Preset[] = [
+    {
+        id: 'standard',
+        players: 4,
+        name: 'Standard map',
         resources: [
             {resource: resources.desert, count: 1},
             {resource: resources.clay, count: 3},
@@ -132,6 +138,6 @@ const PRESETS: { [key: string]: Preset } = {
                 {x: 6, y: 6, water: true, harbour: {resource: resources.field, position: 5}},
                 {x: 6, y: 8, water: true},
                 {x: 6, y: 10, water: true, harbour: {resource: resources.sheep, position: 5}}]
-    }
 
-};
+
+    }];

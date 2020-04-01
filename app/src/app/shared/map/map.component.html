@@ -1,6 +1,7 @@
 <ng-container *ngIf="board">
     <figure id="diagram-grid-doubled-q">
-        <svg [attr.viewBox]="'-100 -106.60254037844388 '+(board.size.x+1.4)*widthOffset+' '+(board.size.y+2.5)/2*heightOffset">
+        <svg id="map" [style.max-width.px]="board.size.x*140"
+             [attr.viewBox]="'-100 -106.60254037844388 '+(board.size.x+1.4)*widthOffset+' '+(board.size.y+2.5)/2*heightOffset">
             <g (click)="selectField(field)" [class.marked]="isHighlighted(field)" transform="rotate(0)" fill="white"
                stroke="black" class="grid"
                *ngFor="let field of board.fields"

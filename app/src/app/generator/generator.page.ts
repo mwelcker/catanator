@@ -1,31 +1,28 @@
 import {Component, OnInit} from '@angular/core';
 import {Board} from '../model/board';
-import {MapGeneratorService} from '../services/map-generator.service';
+import {MapGeneratorService, PRESETS} from '../services/map-generator.service';
 
 @Component({
-  selector: 'app-generator',
-  templateUrl: './generator.page.html',
-  styleUrls: ['./generator.page.scss'],
+    selector: 'app-generator',
+    templateUrl: './generator.page.html',
+    styleUrls: ['./generator.page.scss'],
 })
 export class GeneratorPage implements OnInit {
 
-  public board: Board;
+    public board: Board;
+    public presets = PRESETS;
+    playerCount = 4;
+    selectedPresetId: string = this.presets[0].id;
 
-  constructor(private mapService: MapGeneratorService) {
-    this.board = this.mapService.generateMapByPreset('standard');
-  }
+    constructor(private mapService: MapGeneratorService) {
+        this.generate();
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  generate() {
-    this.board = this.mapService.generateMapByPreset('standard');
-    console.log(this.board);
-  }
-
-  generateRandom(x: number, y: number) {
-    this.board = this.mapService.generateBySize(x, y);
-  }
-
+    generate() {
+        this.board = this.mapService.generateMapByPreset(this.selectedPresetId);
+    }
 
 }

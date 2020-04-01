@@ -5,21 +5,44 @@
 </ion-header>
 
 <ion-content>
-    <ion-row class="ion-justify-content-center">
-        <ion-col size="12">
-            <ion-grid>
-                <ion-row>
-                    <ion-col>
+    <ion-grid>
+        <ion-row class="ion-justify-content-center">
+            <ion-col sizeMd="6" sizeLg="4" sizeSm="12" sizeXs="12" pushMd="6" pushLg="8">
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-title>Generate scenario map</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+
+                        <ion-item>
+                            <ion-label>Players</ion-label>
+                            <ion-select [(ngModel)]="playerCount" interface="action-sheet"
+                                        placeholder="Settler Scenario">
+                                <ion-select-option [value]="4">4</ion-select-option>
+                                <ion-select-option [value]="6">6</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Scenario</ion-label>
+                            <ion-select [(ngModel)]="selectedPresetId" interface="action-sheet"
+                                        placeholder="Settler Scenario">
+                                <ion-select-option *ngFor="let preset of (presets| presetsFilter:playerCount)"
+                                                   [value]="preset.id">{{preset.name}}</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+
+                        <ion-button expand="block" color="secondary" [disabled]="!selectedPresetId"
+                                    (click)="generate()">Generate map
+                        </ion-button>
+
                         <ion-button expand="block" color="light">More options ...
                         </ion-button>
-                    </ion-col>
-                    <ion-col>
-                        <ion-button expand="block" color="secondary" (click)="generate()">Generate map</ion-button>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-
-            <app-map [generatorMode]="true" [board]="board"></app-map>
-        </ion-col>
-    </ion-row>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col sizeMd="6" sizeLg="8" sizeSm="12" sizeXs="12" pullMd="6" pullLg="4">
+                <app-map [generatorMode]="true" [board]="board"></app-map>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>
