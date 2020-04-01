@@ -31,19 +31,15 @@ const DIRECTION_TO_COORDINATES_OFFSET = {
 };
 
 export class Board {
-    _fields: Field[] = [];
     size: {
         x: number,
         y: number
     };
 
-
     constructor() {
     }
 
-    set fields(fields: Field[]) {
-        this._fields = fields;
-    }
+    _fields: Field[] = [];
 
     get fields(): Field[] {
         this.size = {
@@ -51,6 +47,10 @@ export class Board {
             y: Math.max.apply(Math, this._fields.map(field => field.y))
         };
         return this._fields;
+    }
+
+    set fields(fields: Field[]) {
+        this._fields = fields;
     }
 
     getNeighbours(field: Field): Field[] {

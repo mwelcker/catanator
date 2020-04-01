@@ -11,17 +11,24 @@ import {Field} from '../../model/field';
     styleUrls: ['./editor.page.scss'],
 })
 export class EditorPage implements OnInit {
-    _width = 5;
-    _height = 5;
-
     public board: Board;
 
     constructor(private mapService: MapGeneratorService, public modalController: ModalController) {
         this.generateRandom();
     }
 
-    ngOnInit() {
+    _width = 5;
+
+    get width() {
+        return this._width;
     }
+
+    set width(width: number) {
+        this._width = width;
+        this.generateRandom();
+    }
+
+    _height = 5;
 
     get height() {
         return this._height;
@@ -32,13 +39,7 @@ export class EditorPage implements OnInit {
         this.generateRandom();
     }
 
-    get width() {
-        return this._width;
-    }
-
-    set width(width: number) {
-        this._width = width;
-        this.generateRandom();
+    ngOnInit() {
     }
 
     async presentModal(field: Field) {

@@ -1,48 +1,40 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-title>Generator</ion-title>
-    </ion-toolbar>
-</ion-header>
+<ion-grid>
+    <ion-row class="ion-justify-content-center">
+        <ion-col pushLg="8" pushMd="6" sizeLg="4" sizeMd="6" sizeSm="12" sizeXs="12">
+            <ion-card>
+                <ion-card-header>
+                    <ion-card-title>Generate scenario map</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
 
-<ion-content>
-    <ion-grid>
-        <ion-row class="ion-justify-content-center">
-            <ion-col sizeMd="6" sizeLg="4" sizeSm="12" sizeXs="12" pushMd="6" pushLg="8">
-                <ion-card>
-                    <ion-card-header>
-                        <ion-card-title>Generate scenario map</ion-card-title>
-                    </ion-card-header>
-                    <ion-card-content>
+                    <ion-item>
+                        <ion-label>Players</ion-label>
+                        <ion-select [(ngModel)]="playerCount" interface="action-sheet"
+                                    placeholder="Settler Scenario">
+                            <ion-select-option [value]="4">4</ion-select-option>
+                            <ion-select-option [value]="6">6</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Scenario</ion-label>
+                        <ion-select [(ngModel)]="selectedPresetId" interface="action-sheet"
+                                    placeholder="Settler Scenario">
+                            <ion-select-option *ngFor="let preset of (presets| presetsFilter:playerCount)"
+                                               [value]="preset.id">{{preset.name}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
 
-                        <ion-item>
-                            <ion-label>Players</ion-label>
-                            <ion-select [(ngModel)]="playerCount" interface="action-sheet"
-                                        placeholder="Settler Scenario">
-                                <ion-select-option [value]="4">4</ion-select-option>
-                                <ion-select-option [value]="6">6</ion-select-option>
-                            </ion-select>
-                        </ion-item>
-                        <ion-item>
-                            <ion-label>Scenario</ion-label>
-                            <ion-select [(ngModel)]="selectedPresetId" interface="action-sheet"
-                                        placeholder="Settler Scenario">
-                                <ion-select-option *ngFor="let preset of (presets| presetsFilter:playerCount)"
-                                                   [value]="preset.id">{{preset.name}}</ion-select-option>
-                            </ion-select>
-                        </ion-item>
+                    <ion-button (click)="generate()" [disabled]="!selectedPresetId" color="secondary"
+                                expand="block">Generate map
+                    </ion-button>
 
-                        <ion-button expand="block" color="secondary" [disabled]="!selectedPresetId"
-                                    (click)="generate()">Generate map
-                        </ion-button>
-
-                        <ion-button expand="block" color="light">More options ...
-                        </ion-button>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-            <ion-col sizeMd="6" sizeLg="8" sizeSm="12" sizeXs="12" pullMd="6" pullLg="4">
-                <app-map [generatorMode]="true" [board]="board"></app-map>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-</ion-content>
+                    <ion-button color="light" expand="block">More options ... WIP
+                    </ion-button>
+                </ion-card-content>
+            </ion-card>
+        </ion-col>
+        <ion-col pullLg="4" pullMd="6" sizeLg="8" sizeMd="6" sizeSm="12" sizeXs="12">
+            <app-map [board]="board" [generatorMode]="true"></app-map>
+        </ion-col>
+    </ion-row>
+</ion-grid>

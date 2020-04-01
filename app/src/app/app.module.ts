@@ -10,20 +10,20 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(),
-    AppRoutingModule
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
-  ],
-  bootstrap: [AppComponent],
-  exports: [
-  ],
-  entryComponents: []
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
+        IonicModule.forRoot(),
+        AppRoutingModule
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
+    ],
+    bootstrap: [AppComponent],
+    exports: [],
+    entryComponents: []
 })
-export class AppModule {}
+export class AppModule {
+}

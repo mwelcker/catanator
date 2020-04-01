@@ -22,14 +22,13 @@ export class MapComponent implements OnInit, AfterViewInit {
     selectedField: Field;
     highlightedFields: Field[] = [];
 
-
-    ngAfterViewInit() {
-
-    }
-
     constructor(private mapService: MapGeneratorService) {
         this.board = this.mapService.generateMapByPreset('standard');
         this.selectedField = this.board.fields[0];
+
+    }
+
+    ngAfterViewInit() {
 
     }
 
