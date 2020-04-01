@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Board} from '../model/board';
-import {MapGeneratorService} from '../services/map-generator.service';
+import {Board} from '../../model/board';
+import {MapGeneratorService} from '../../services/map-generator.service';
 import {ModalController} from '@ionic/angular';
 import {FieldEditModalPage} from './field-edit-modal/field-edit-modal.page';
-import {Field} from '../model/field';
+import {Field} from '../../model/field';
 
 @Component({
     selector: 'app-editor',

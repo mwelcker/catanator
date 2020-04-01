@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Preset} from "./services/map-generator.service";
+import {Preset} from "../../services/map-generator.service";
 
 @Pipe({
     name: 'presetsFilter'

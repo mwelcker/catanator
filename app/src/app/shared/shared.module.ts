@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MapComponent} from './map/map.component';
-import {PresetsFilterPipe} from "../presets-filter.pipe";
+import {PresetsFilterPipe} from "./pipes/presets-filter.pipe";
 
 
 @NgModule({

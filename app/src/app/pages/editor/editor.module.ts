@@ -7,7 +7,7 @@ import {IonicModule} from '@ionic/angular';
 import {EditorPageRoutingModule} from './editor-routing.module';
 
 import {EditorPage} from './editor.page';
-import {SharedModule} from '../shared/shared.module';
+import {SharedModule} from '../../shared/shared.module';
 import {FieldEditModalPage} from './field-edit-modal/field-edit-modal.page';
 import {FieldEditModalPageModule} from './field-edit-modal/field-edit-modal.module';
 

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Board} from '../model/board';
-import {MapGeneratorService, PRESETS} from '../services/map-generator.service';
+import {MapGeneratorService, PRESETS} from "../../services/map-generator.service";
+import {Board} from "../../model/board";
 
 @Component({
     selector: 'app-generator',

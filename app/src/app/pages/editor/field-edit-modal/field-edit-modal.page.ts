@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Field} from '../../model/field';
+import {Field} from '../../../model/field';
 import {NavParams} from '@ionic/angular';
-import {resources} from '../../model/resource';
+import {resources} from '../../../model/resource';
 
 @Component({
     selector: 'app-field-edit-modal',
