@@ -1,6 +1,6 @@
+<h4> Landscape </h4>
+<hr>
 <ion-grid>
-    <h4> Landscape </h4>
-    <hr>
     <ion-row>
         <ion-col size="6" *ngFor="let key of objectKeys(resources)">
             <div class="landscape" (click)="setResource(resources[key]) "
@@ -9,7 +9,8 @@
             </div>
         </ion-col>
     </ion-row>
-
+</ion-grid>
+<ion-grid>
     <div *ngIf="!['none','desert', 'water'].includes(field.resource.name)">
         <h4> Chip </h4>
         <hr>
@@ -27,5 +28,3 @@
         </ion-row>
     </div>
 </ion-grid>
-
-<ion-button color="medium" expand="full" (click)="">Close</ion-button>
