@@ -16,13 +16,9 @@ const routes: Routes = [
         loadChildren: () => import('./pages/editor/editor.module').then(m => m.EditorPageModule)
     },
     {
-        path: 'field-edit-modal',
-        loadChildren: () => import('./pages/editor/field-edit-modal/field-edit-modal.module').then(m => m.FieldEditModalPageModule)
-    },
-  {
-    path: 'community',
-    loadChildren: () => import('./pages/community/community.module').then(m => m.CommunityPageModule)
-  }
+        path: 'community',
+        loadChildren: () => import('./pages/community/community.module').then(m => m.CommunityPageModule)
+    }
 
 ];
 

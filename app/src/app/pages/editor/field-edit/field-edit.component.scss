@@ -1,0 +1,26 @@
+.landscape {
+  padding: 10px 20px;
+  display: flex;
+
+}
+
+.landscape:hover {
+  box-shadow: 1px 1px 10px #3d802b;
+  cursor: pointer;
+}
+
+.number {
+  background: #eee;
+  color: black;
+  font-weight: bold;
+  padding: 19px;
+  border-radius: 241px;
+  text-align: center;
+  border: 1px solid black;
+  cursor: pointer;
+  max-width: 63px;
+}
+
+.number:hover {
+  background: #dadada;
+}

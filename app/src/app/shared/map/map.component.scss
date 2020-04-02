@@ -21,3 +21,14 @@
     fill: red;
   }
 }
+
+.editor {
+  .grid {
+    cursor: pointer;
+  }
+
+  .grid polygon:hover {
+    stroke: green;
+    stroke-width: 6;;
+  }
+}

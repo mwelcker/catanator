@@ -1,8 +1,11 @@
 <ng-container *ngIf="board">
-    <figure id="diagram-grid-doubled-q">
-        <svg [attr.viewBox]="'-100 -106.60254037844388 '+(board.size.x+1.4)*widthOffset+' '+(board.size.y+2.5)/2*heightOffset" [style.max-width.px]="board.size.x*140"
+    <figure id="diagram-grid-doubled-q" [class.editor]="editorMode">
+        <svg [attr.viewBox]="'-100 -106.60254037844388 '+(board.size.x+1.4)*widthOffset+' '+(board.size.y+2.5)/2*heightOffset"
+             [style.max-width.px]="board.size.x*140"
              id="map">
-            <g (click)="selectField(field)" *ngFor="let field of board.fields" [attr.transform]="'translate('+field.x*widthOffset+','+(field.y*heightOffset)/2+')'" [class.marked]="isHighlighted(field)"
+            <g (click)="selectField(field)" *ngFor="let field of board.fields"
+               [attr.transform]="'translate('+field.x*widthOffset+','+(field.y*heightOffset)/2+')'"
+               [class.marked]="isHighlighted(field)"
                class="grid" fill="white"
                stroke="black"
                transform="rotate(0)">
@@ -13,8 +16,10 @@
                                height="100" width="100" x="0" y="0"/>
                     </pattern>
                 </defs>
-                <polygon [attr.fill]="'url(#'+field.resource.name+')'" [attr.fill]="field.resource.color"
-                         points="100,0 50,-87 -50,-87 -100,-0 -50,87 50,87"></polygon>
+                <polygon
+                        *ngIf="!(!editorMode && field.resource.name === 'none')"
+                        [attr.fill]="'url(#'+field.resource.name+')'" [attr.fill]="field.resource.color"
+                        points="100,0 50,-87 -50,-87 -100,-0 -50,87 50,87"></polygon>
                 <g *ngIf="field.harbour" [attr.transform]="'rotate('+60 * field.harbour.position+')'">
                     <polygon fill="none"
                              points="-50,-87 50,-87 0,-35"></polygon>
@@ -27,7 +32,7 @@
                     </text>
                 </g>
 
-                <text dy="0.4em" transform="translate(-15,8)">
+                <text dy="0.4em" [attr.transform]="'translate('+(field.chip >= 10 ? -30 : -15)+',8)'">
                     <tspan class="q-coord">{{field.chip}}</tspan>
                 </text>
                 <g *ngIf="analyseMode" class="city-marker">

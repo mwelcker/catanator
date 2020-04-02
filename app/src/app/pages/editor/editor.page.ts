@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Board} from '../../model/board';
 import {MapGeneratorService} from '../../services/map-generator.service';
-import {ModalController} from '@ionic/angular';
-import {FieldEditModalPage} from './field-edit-modal/field-edit-modal.page';
-import {Field} from '../../model/field';
+import {PopoverController} from '@ionic/angular';
+import {FieldEditComponent} from "./field-edit/field-edit.component";
+import {Field} from "../../model/field";
 
 @Component({
     selector: 'app-editor',
@@ -13,7 +13,9 @@ import {Field} from '../../model/field';
 export class EditorPage implements OnInit {
     public board: Board;
 
-    constructor(private mapService: MapGeneratorService, public modalController: ModalController) {
+    constructor(public popoverController: PopoverController,
+                private mapService: MapGeneratorService
+    ) {
         this.generateRandom();
     }
 
@@ -29,6 +31,7 @@ export class EditorPage implements OnInit {
     }
 
     _height = 5;
+    newMap: boolean = true;
 
     get height() {
         return this._height;
@@ -42,14 +45,14 @@ export class EditorPage implements OnInit {
     ngOnInit() {
     }
 
-    async presentModal(field: Field) {
-        const modal = await this.modalController.create({
-            component: FieldEditModalPage,
-            componentProps: {
-                field,
-            }
+    async presentPopover(ev: Field) {
+        this.newMap = false;
+        const popover = await this.popoverController.create({
+            component: FieldEditComponent,
+            componentProps: {field: ev},
+            translucent: false
         });
-        return await modal.present();
+        return await popover.present();
     }
 
     generateRandom() {

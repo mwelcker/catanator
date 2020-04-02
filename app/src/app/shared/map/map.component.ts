@@ -19,6 +19,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     @Output() fieldClick = new EventEmitter();
     @Input() generatorMode = false;
     @Input() analyseMode = false;
+    @Input() editorMode = false;
     selectedField: Field;
     highlightedFields: Field[] = [];
 
